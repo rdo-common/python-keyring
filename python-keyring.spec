@@ -39,6 +39,7 @@ python-keyring-kwallet.
 
 %package        gnome
 Summary:        Use gnome-keyring as backend for python-keyring
+Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
 Requires:       dbus gnome-keyring
 
@@ -49,6 +50,7 @@ stored in the gnome-keyring database.
 
 %package        kwallet
 Summary:        Use KWallet as backend for python-keyring
+Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
 
 %description    kwallet
@@ -67,7 +69,7 @@ CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-L %{_libdir}/kde4/devel" %{__python} setup.py 
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 
 %clean
-%{__rm} -rf $RPM_BUILD_ROOT
+#%{__rm} -rf $RPM_BUILD_ROOT
 
 
 %files 
