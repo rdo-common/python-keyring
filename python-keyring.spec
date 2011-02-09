@@ -2,7 +2,7 @@
 
 Name:           python-keyring
 Version:        0.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library to access the system keyring service
 
 Source0:        http://pypi.python.org/packages/source/k/keyring/%{upstream_name}-%{version}.tar.gz
@@ -45,6 +45,9 @@ CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
 %{python_sitelib}/%{upstream_name}-*.egg-info
 
 %changelog
+* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Mon Jan 10 2011 rtnpro <rtnpro@gmail.com> 0.5.1-1
 - Remove a spurious KDE debug message when using KWallet
 - Fix a bug that caused an exception if the user canceled the KWallet dialog
