@@ -2,7 +2,7 @@
 
 Name:           python-keyring
 Version:        0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library to access the system keyring service
 
 Source0:        http://pypi.python.org/packages/source/k/keyring/%{upstream_name}-%{version}.zip
@@ -46,6 +46,9 @@ CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
 %{python_sitelib}/%{upstream_name}-*.egg-info
 
 %changelog
+* Sat Jul 21 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Sat Jan 14 2012 rtnpro <rtnpro@gmail.com> 0.7-1
 - Python 3 is now supported. All tests now pass under Python 3.2 on Windows and
 Linux (although Linux backend support is limited). Fixes #28.
