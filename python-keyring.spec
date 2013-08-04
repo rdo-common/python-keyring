@@ -2,7 +2,7 @@
 
 Name:           python-keyring
 Version:        0.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python library to access the system keyring service
 
 Source0:        http://pypi.python.org/packages/source/k/keyring/%{upstream_name}-%{version}.zip
@@ -46,6 +46,9 @@ CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
 %{python_sitelib}/%{upstream_name}-*.egg-info
 
 %changelog
+* Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
