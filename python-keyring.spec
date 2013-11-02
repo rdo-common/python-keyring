@@ -1,17 +1,25 @@
-%global upstream_name keyring
+%if 0%{?fedora} > 12
+%global with_python3 1
+%endif
+
+%{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
 
 Name:           python-keyring
-Version:        0.7
-Release:        4%{?dist}
+Version:        3.1
+Release:        1%{?dist}
 Summary:        Python library to access the system keyring service
 
-Source0:        http://pypi.python.org/packages/source/k/keyring/%{upstream_name}-%{version}.zip
-Patch0:         keyring-%{version}.patch
+Source0:        http://pypi.python.org/packages/source/k/keyring/keyring-%{version}.zip
+Patch0:         keyring-3.1-fix-cli.patch
 License:        Python
 Group:          Development/Libraries
 URL:            http://pypi.python.org/pypi/keyring
 BuildArch:      noarch
 BuildRequires:  python-devel
+%if 0%{?with_python3}
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+%endif
 Obsoletes:      %{name}-kwallet < %{version}
 Obsoletes:      %{name}-gnome < %{version}
 Obsoletes:      %{name} < %{version}
@@ -21,19 +29,47 @@ The Python keyring lib provides a easy way to access the system keyring
 service from python. It can be used in any application that needs safe
 password storage.
 
-This package only provides file-based pseudo-keyrings. To interface with
-gnome-keyring or KWallet, please install one of python-keyring-gnome or
-python-keyring-kwallet.
+%if 0%{?with_python3}
+%package -n python3-keyring
+Summary:        Python library to access the system keyring service for Python 3
+Group:          Development/Libraries
+
+%description -n python3-keyring
+The Python keyring lib provides a easy way to access the system keyring
+service from python. It can be used in any application that needs safe
+password storage.
+%endif
 
 %prep
-%setup -q -n %{upstream_name}-%{version}
+%setup -q -n keyring-%{version}
 %patch0 -p1
+
+%if 0%{?with_python3}
+rm -rf %{py3dir}
+cp -a . %{py3dir}
+%endif
+
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
+
+%if 0%{?with_python3}
+pushd %{py3dir}
+CFLAGS="${RPM_OPT_FLAGS}" %{__python3} setup.py build
+popd
+%endif
+
+
 %install
-%{__rm} -rf $RPM_BUILD_ROOT
-%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%if 0%{?with_python3}
+pushd %{py3dir}
+%{__python3} setup.py install --skip-build --root $RPM_BUILD_ROOT
+cp %{buildroot}/%{_bindir}/keyring %{buildroot}/%{_bindir}/python3-keyring
+popd
+%endif
+
+%{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT
+
 
 %clean
 %{__rm} -rf $RPM_BUILD_ROOT
@@ -41,13 +77,23 @@ CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
 
 %files
 %defattr(-,root,root,-)
-%doc README demo
-%{python_sitelib}/%{upstream_name}
-%{python_sitelib}/%{upstream_name}-*.egg-info
+%doc README.rst CHANGES.rst CONTRIBUTORS.txt demo
+%{_bindir}/keyring
+%{python_sitelib}/keyring
+%{python_sitelib}/keyring-*.egg-info
+
+%if 0%{?with_python3}
+%files -n python3-keyring
+%defattr(-,root,root,-)
+%{_bindir}/python3-keyring
+%doc README.rst CHANGES.rst CONTRIBUTORS.txt demo
+%{python3_sitelib}/*
+%endif
+
 
 %changelog
-* Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+* Tue Oct 22 2013 rtnpro <rtnpro@gmail.com> - 3.1-1
+- Bump to version 3.1
 
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
