@@ -189,5 +189,3 @@ strings passed to it.
 
 * Wed May 19 2010 Ratnadeep Debnath <rtnpro@gmail.com> 0.2
 - Initial RPM package
-
-
