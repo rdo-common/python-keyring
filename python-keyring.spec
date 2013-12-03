@@ -1,37 +1,17 @@
 %if 0%{?fedora} > 12
 %global with_python3 1
 %endif
-<<<<<<< HEAD
-
-%{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
-
-Name:           python-keyring
-Version:        3.1
-Release:        1%{?dist}
-Summary:        Python library to access the system keyring service
-
-=======
 
 Name:           python-keyring
 Version:        3.3
 Release:        1%{?dist}
 Summary:        Python 2.x library to store and access passwords safely
 URL:            http://bitbucket.org/kang/python-keyring-lib/
->>>>>>> master
 Source0:        http://pypi.python.org/packages/source/k/keyring/keyring-%{version}.zip
-Patch0:         keyring-3.1-fix-cli.patch
 License:        Python
 BuildArch:      noarch
-<<<<<<< HEAD
-BuildRequires:  python-devel
-%if 0%{?with_python3}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%endif
-=======
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
->>>>>>> master
 Obsoletes:      %{name}-kwallet < %{version}
 Obsoletes:      %{name}-gnome < %{version}
 Obsoletes:      %{name} < %{version}
@@ -40,13 +20,6 @@ Obsoletes:      %{name} < %{version}
 The Python keyring lib provides a easy way to access the system keyring
 service from python. It can be used in any application that needs safe
 password storage.
-<<<<<<< HEAD
-
-%if 0%{?with_python3}
-%package -n python3-keyring
-Summary:        Python library to access the system keyring service for Python 3
-Group:          Development/Libraries
-=======
         
 The keyring services supported by the Python keyring lib:
         
@@ -68,18 +41,11 @@ Python keyring lib also provides following build-in keyrings.
 Summary:        Python 3.x library to access the system keyring service
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
->>>>>>> master
 
 %description -n python3-keyring
 The Python keyring lib provides a easy way to access the system keyring
 service from python. It can be used in any application that needs safe
 password storage.
-<<<<<<< HEAD
-%endif
-
-%prep
-%setup -q -n keyring-%{version}
-=======
         
 The keyring services supported by the Python keyring lib:
         
@@ -100,51 +66,19 @@ Python keyring lib also provides following build-in keyrings.
 %prep
 %setup -qn keyring-%{version}
 rm -rf keyring.egg-info
->>>>>>> master
-%patch0 -p1
+sed -i '1{\@^#!/usr/bin/env python@d}' keyring/cli.py
 %if 0%{?with_python3}
 rm -rf %{py3dir}
 cp -a . %{py3dir}
 %endif
-
-%if 0%{?with_python3}
-rm -rf %{py3dir}
-cp -a . %{py3dir}
-%endif
-
 
 %build
-<<<<<<< HEAD
-CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
-
-%if 0%{?with_python3}
-pushd %{py3dir}
-CFLAGS="${RPM_OPT_FLAGS}" %{__python3} setup.py build
-popd
-%endif
-
-
-%install
-%if 0%{?with_python3}
-pushd %{py3dir}
-%{__python3} setup.py install --skip-build --root $RPM_BUILD_ROOT
-cp %{buildroot}/%{_bindir}/keyring %{buildroot}/%{_bindir}/python3-keyring
-popd
-%endif
-
-%{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT
-
-
-%clean
-%{__rm} -rf $RPM_BUILD_ROOT
-=======
 %{__python2} setup.py build
 %if 0%{?with_python3}
 pushd %{py3dir}
 %{__python3} setup.py build
 popd
 %endif
->>>>>>> master
 
 %install
 %if 0%{?with_python3}
@@ -167,25 +101,6 @@ popd
 #nosetests
 
 %files
-<<<<<<< HEAD
-%defattr(-,root,root,-)
-%doc README.rst CHANGES.rst CONTRIBUTORS.txt demo
-%{_bindir}/keyring
-%{python_sitelib}/keyring
-%{python_sitelib}/keyring-*.egg-info
-
-%if 0%{?with_python3}
-%files -n python3-keyring
-%defattr(-,root,root,-)
-%{_bindir}/python3-keyring
-%doc README.rst CHANGES.rst CONTRIBUTORS.txt demo
-%{python3_sitelib}/*
-%endif
-
-
-%changelog
-* Tue Oct 22 2013 rtnpro <rtnpro@gmail.com> - 3.1-1
-=======
 %doc CHANGES.rst README.rst CONTRIBUTORS.txt demo
 %{_bindir}/keyring
 %{python2_sitelib}/keyring
@@ -206,7 +121,6 @@ popd
 - Optimize the %%changelog section of the spec.
 
 * Tue Oct 22 2013 Ratnadeep Debnath <rtnpro@gmail.com> - 3.1-1
->>>>>>> master
 - Bump to version 3.1
 
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7-3
@@ -275,5 +189,3 @@ strings passed to it.
 
 * Wed May 19 2010 Ratnadeep Debnath <rtnpro@gmail.com> 0.2
 - Initial RPM package
-
-
