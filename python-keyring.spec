@@ -8,7 +8,6 @@ Release:        1%{?dist}
 Summary:        Python 2.x library to store and access passwords safely
 URL:            http://bitbucket.org/kang/python-keyring-lib/
 Source0:        http://pypi.python.org/packages/source/k/keyring/keyring-%{version}.zip
-Patch0:         keyring-3.1-fix-cli.patch
 License:        Python
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -67,7 +66,7 @@ Python keyring lib also provides following build-in keyrings.
 %prep
 %setup -qn keyring-%{version}
 rm -rf keyring.egg-info
-%patch0 -p1
+sed -i '1{\@^#!/usr/bin/env python@d}' keyring/cli.py
 %if 0%{?with_python3}
 rm -rf %{py3dir}
 cp -a . %{py3dir}
