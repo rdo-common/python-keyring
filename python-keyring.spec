@@ -1,20 +1,17 @@
-%if 0%{?fedora} > 12
 %global with_python3 1
-%endif
 
 Name:           python-keyring
-Version:        3.3
+Version:        3.4
 Release:        1%{?dist}
-Summary:        Python 2.x library to store and access passwords safely
+Summary:        Python 2 library to store and access passwords safely
+License:        Python
 URL:            http://bitbucket.org/kang/python-keyring-lib/
 Source0:        http://pypi.python.org/packages/source/k/keyring/keyring-%{version}.zip
-License:        Python
 BuildArch:      noarch
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
-Obsoletes:      %{name}-kwallet < %{version}
-Obsoletes:      %{name}-gnome < %{version}
-Obsoletes:      %{name} < %{version}
+Obsoletes:      %{name}-kwallet < %{version}-%{release}
+Obsoletes:      %{name}-gnome < %{version}-%{release}
 
 %description
 The Python keyring lib provides a easy way to access the system keyring
@@ -38,7 +35,7 @@ Python keyring lib also provides following build-in keyrings.
 
 %if 0%{?with_python3}
 %package -n     python3-keyring
-Summary:        Python 3.x library to access the system keyring service
+Summary:        Python 3 library to access the system keyring service
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
@@ -84,7 +81,7 @@ popd
 %if 0%{?with_python3}
 pushd %{py3dir}
 %{__python3} setup.py install -O1 --skip-build --root %{buildroot}
-cp -p %{buildroot}%{_bindir}/keyring %{buildroot}%{_bindir}/keyring-%{python3_version}
+cp -a %{buildroot}%{_bindir}/keyring %{buildroot}%{_bindir}/keyring-%{python3_version}
 popd
 %endif
 %{__python2} setup.py install -O1 --skip-build --root %{buildroot}
@@ -101,20 +98,24 @@ popd
 #nosetests
 
 %files
-%doc CHANGES.rst README.rst CONTRIBUTORS.txt demo
+%doc CHANGES.rst README.rst CONTRIBUTORS.txt demo/
 %{_bindir}/keyring
 %{python2_sitelib}/keyring
 %{python2_sitelib}/keyring-%{version}-py%{python2_version}.egg-info
 
 %if 0%{?with_python3}
 %files -n python3-keyring
-%doc CHANGES.rst README.rst CONTRIBUTORS.txt demo
+%doc CHANGES.rst README.rst CONTRIBUTORS.txt demo/
 %{_bindir}/keyring-%{python3_version}
 %{python3_sitelib}/keyring-%{version}-py%{python3_version}.egg-info
 %{python3_sitelib}/keyring
 %endif
 
 %changelog
+* Thu Feb 13 2014 Christopher Meng <rpm@cicku.me> - 3.4-1
+- Update to 3.4(BZ#1064256)
+- Ensure the obsolete line works for the old packages really.
+
 * Mon Dec 02 2013 Christopher Meng <rpm@cicku.me> - 3.3-1
 - Update to 3.3(BZ#1007354,BZ#872262)
 - Cleanup dependencies mess(BZ#1030944).
