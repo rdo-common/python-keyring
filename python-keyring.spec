@@ -1,7 +1,7 @@
 %global with_python3 1
 
 Name:           python-keyring
-Version:        3.4
+Version:        3.6
 Release:        1%{?dist}
 Summary:        Python 2 library to store and access passwords safely
 License:        Python
@@ -112,6 +112,9 @@ popd
 %endif
 
 %changelog
+* Sat Mar 08 2014 Christopher Meng <rpm@cicku.me> - 3.6-1
+- Update to 3.6
+
 * Thu Feb 13 2014 Christopher Meng <rpm@cicku.me> - 3.4-1
 - Update to 3.4(BZ#1064256)
 - Ensure the obsolete line works for the old packages really.
