@@ -98,14 +98,14 @@ popd
 #nosetests
 
 %files
-%doc CHANGES.rst README.rst CONTRIBUTORS.txt demo/
+%doc CHANGES.rst README.rst CONTRIBUTORS.txt
 %{_bindir}/keyring
 %{python2_sitelib}/keyring
 %{python2_sitelib}/keyring-%{version}-py%{python2_version}.egg-info
 
 %if 0%{?with_python3}
 %files -n python3-keyring
-%doc CHANGES.rst README.rst CONTRIBUTORS.txt demo/
+%doc CHANGES.rst README.rst CONTRIBUTORS.txt
 %{_bindir}/keyring-%{python3_version}
 %{python3_sitelib}/keyring-%{version}-py%{python3_version}.egg-info
 %{python3_sitelib}/keyring
