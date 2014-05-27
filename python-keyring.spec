@@ -2,7 +2,7 @@
 
 Name:           python-keyring
 Version:        3.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python 2 library to store and access passwords safely
 License:        Python
 URL:            http://bitbucket.org/kang/python-keyring-lib/
@@ -112,6 +112,9 @@ popd
 %endif
 
 %changelog
+* Wed May 28 2014 Kalev Lember <kalevlember@gmail.com> - 3.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Python_3.4
+
 * Tue May 13 2014 Christopher Meng <rpm@cicku.me> - 3.8-1
 - Update to 3.8
 
