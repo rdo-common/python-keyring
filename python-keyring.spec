@@ -1,7 +1,7 @@
 %global with_python3 1
 
 Name:           python-keyring
-Version:        3.8
+Version:        4.0
 Release:        1%{?dist}
 Summary:        Python 2 library to store and access passwords safely
 License:        Python
@@ -112,6 +112,15 @@ popd
 %endif
 
 %changelog
+* Sat Aug 02 2014 Christopher Meng <rpm@cicku.me> - 4.0-1
+- Update to 4.0
+
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Wed May 28 2014 Kalev Lember <kalevlember@gmail.com> - 3.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Python_3.4
+
 * Tue May 13 2014 Christopher Meng <rpm@cicku.me> - 3.8-1
 - Update to 3.8
 
