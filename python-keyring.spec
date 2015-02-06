@@ -4,7 +4,7 @@ Name:           python-keyring
 Version:        5.0
 Release:        1%{?dist}
 Summary:        Python 2 library to store and access passwords safely
-License:        Python
+License:        MIT and Python
 URL:            http://bitbucket.org/kang/python-keyring-lib/
 Source0:        http://pypi.python.org/packages/source/k/keyring/keyring-%{version}.zip
 BuildArch:      noarch
@@ -63,7 +63,12 @@ Python keyring lib also provides following build-in keyrings.
 %prep
 %setup -qn keyring-%{version}
 rm -frv keyring.egg-info
+# Drop redundant shebangs.
 sed -i '1{\@^#!/usr/bin/env python@d}' keyring/cli.py
+# Drop slags from upstream of using his own versioning system.
+sed -i -e "\@use_vcs_version@s/^.*$/\tversion = \"%{version}\",/g" \
+       -e "{\@^\'hgtools\'@d}" setup.py
+
 %if 0%{?with_python3}
 rm -rf %{py3dir}
 cp -a . %{py3dir}
@@ -114,6 +119,7 @@ popd
 %changelog
 * Wed Feb 04 2015 Christopher Meng <rpm@cicku.me> - 5.0-1
 - Update to 5.0
+- Revise license tag to match upstream.
 
 * Sat Aug 02 2014 Christopher Meng <rpm@cicku.me> - 4.0-1
 - Update to 4.0
