@@ -1,7 +1,7 @@
 %global with_python3 1
 
 Name:           python-keyring
-Version:        4.0
+Version:        5.0
 Release:        1%{?dist}
 Summary:        Python 2 library to store and access passwords safely
 License:        Python
@@ -62,7 +62,7 @@ Python keyring lib also provides following build-in keyrings.
 
 %prep
 %setup -qn keyring-%{version}
-rm -rf keyring.egg-info
+rm -frv keyring.egg-info
 sed -i '1{\@^#!/usr/bin/env python@d}' keyring/cli.py
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -112,6 +112,9 @@ popd
 %endif
 
 %changelog
+* Wed Feb 04 2015 Christopher Meng <rpm@cicku.me> - 5.0-1
+- Update to 5.0
+
 * Sat Aug 02 2014 Christopher Meng <rpm@cicku.me> - 4.0-1
 - Update to 4.0
 
