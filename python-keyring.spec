@@ -22,7 +22,7 @@ The keyring services supported by the Python keyring lib:
         
 * **OSXKeychain**: supports the Keychain service in Mac OS X.
 * **KDEKWallet**: supports the KDE's Kwallet service.
-* **GnomeKeyring**: for Gnome 2 environment.
+* **GnomeKeyring**: for GNOME environment.
 * **SecretServiceKeyring**: for newer GNOME and KDE environments.
 * **WinVaultKeyring**: supports the Windows Credential Vault
         
@@ -48,7 +48,7 @@ The keyring services supported by the Python keyring lib:
         
 * **OSXKeychain**: supports the Keychain service in Mac OS X.
 * **KDEKWallet**: supports the KDE's Kwallet service.
-* **GnomeKeyring**: for Gnome 2 environment.
+* **GnomeKeyring**: for GNOME environment.
 * **SecretServiceKeyring**: for newer GNOME and KDE environments.
 * **WinVaultKeyring**: supports the Windows Credential Vault
         
@@ -67,7 +67,7 @@ rm -frv keyring.egg-info
 sed -i '1{\@^#!/usr/bin/env python@d}' keyring/cli.py
 # Drop slags from upstream of using his own versioning system.
 sed -i -e "\@use_vcs_version@s/^.*$/\tversion = \"%{version}\",/g" \
-       -e "{\@^\'hgtools\'@d}" setup.py
+       -e {/\'hgtools\'/d} setup.py
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
