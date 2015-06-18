@@ -2,7 +2,7 @@
 
 Name:           python-keyring
 Version:        5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python 2 library to store and access passwords safely
 License:        MIT and Python
 URL:            http://bitbucket.org/kang/python-keyring-lib/
@@ -117,6 +117,9 @@ popd
 %endif
 
 %changelog
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Wed Feb 04 2015 Christopher Meng <rpm@cicku.me> - 5.0-1
 - Update to 5.0
 - Revise license tag to match upstream.
