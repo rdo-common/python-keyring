@@ -1,15 +1,16 @@
-%global with_python3 1
+%global with_python3 0
 
 Name:           python-keyring
-Version:        5.0
-Release:        4%{?dist}
+Version:        5.7.1
+Release:        1%{?dist}
 Summary:        Python 2 library to store and access passwords safely
 License:        MIT and Python
 URL:            http://bitbucket.org/kang/python-keyring-lib/
-Source0:        http://pypi.python.org/packages/source/k/keyring/keyring-%{version}.zip
+Source0:        https://pypi.io/packages/source/k/keyring/keyring-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
+BuildRequires:  python-setuptools_scm
 Obsoletes:      %{name}-kwallet < %{version}-%{release}
 Obsoletes:      %{name}-gnome < %{version}-%{release}
 
@@ -38,6 +39,7 @@ Python keyring lib also provides following build-in keyrings.
 Summary:        Python 3 library to access the system keyring service
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-setuptools_scm
 
 %description -n python3-keyring
 The Python keyring lib provides a easy way to access the system keyring
@@ -103,20 +105,23 @@ popd
 #nosetests
 
 %files
-%doc CHANGES.rst README.rst CONTRIBUTORS.txt
+%doc CHANGES.rst README.rst
 %{_bindir}/keyring
 %{python2_sitelib}/keyring
 %{python2_sitelib}/keyring-%{version}-py%{python2_version}.egg-info
 
 %if 0%{?with_python3}
 %files -n python3-keyring
-%doc CHANGES.rst README.rst CONTRIBUTORS.txt
+%doc CHANGES.rst README.rst
 %{_bindir}/keyring-%{python3_version}
 %{python3_sitelib}/keyring-%{version}-py%{python3_version}.egg-info
 %{python3_sitelib}/keyring
 %endif
 
 %changelog
+* Mon Jul 18 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 5.7.1-1
+- Upstream 5.7.1
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
